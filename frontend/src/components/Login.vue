@@ -28,7 +28,7 @@ export default{
         async loginUser(){
             try {
                 console.log(this.username)
-                const response = await axios.post("http://localhost:5000/login", { username: this.username });
+                const response = await axios.post("https://blog-api-web-07jr.onrender.com/login", { username: this.username });
                 this.token = response.data.token;
                 localStorage.setItem("token", this.token);
                 localStorage.setItem("username", this.username); // Fix here ✅

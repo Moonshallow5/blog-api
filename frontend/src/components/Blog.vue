@@ -30,7 +30,7 @@ export default{
             const username = localStorage.getItem("username");
             console.log('yo',username)
             console.log('yo',this.title)
-            await axios.post("http://localhost:5000/add-post", {
+            await axios.post("https://blog-api-web-07jr.onrender.com/add-post", {
                 username,
                 title: this.title,
                 content: this.content,
@@ -39,7 +39,7 @@ export default{
         },
         async loadPosts() {
         const username = localStorage.getItem("username");
-        const response = await axios.get(`http://localhost:5000/posts/${username}`);
+        const response = await axios.get(`https://blog-api-web-07jr.onrender.com/posts/${username}`);
         this.posts = response.data;
         },
     }
