@@ -1,11 +1,19 @@
 <template>
 
 <v-container>
-    <v-btn color="primary" @click="showModal = true">Add Post</v-btn>
-    <v-dialog v-model="showModal" persistent max-width="400px">
+    <v-row>
+        <v-col class="d-flex justify-start">
+            <v-btn color="primary" @click=" this.$router.replace('/')"  >Logout</v-btn>
+    </v-col>
+
+    <v-col class="d-flex justify-end">
+            <v-btn color="primary"  @click="showModal = true">Add Post</v-btn>
+    </v-col>
+        </v-row>
+    <v-dialog  v-model="showModal" persistent max-width="400px">
         <v-card>
 
-            <v-card-title>
+            <v-card-title class="d-flex">
 
                 <span class="text-h5">Add a New Post</span>
             </v-card-title>
@@ -21,8 +29,9 @@
         </v-card-actions>
     </v-card-text>
     </v-dialog>
+    
 
-    <h2>Your Blog Posts</h2>
+    <h2 class="mt-7">Your Blog Posts</h2>
     <v-row>
    
       <v-col v-for="post in posts" :key="post.id">
@@ -36,6 +45,16 @@
             {{ post.content }}
 
         </v-card-subtitle>
+        <v-card-actions>
+            <v-spacer></v-spacer>
+            <v-btn 
+              v-if="post.user_id === loggedInUserId" 
+              color="red" 
+              @click="deletePost(post.id)"
+            >
+              Delete
+            </v-btn>
+          </v-card-actions>
 
         </v-card>
       </v-col>
@@ -54,12 +73,15 @@ export default{
         return { 
             title: "", content: "", posts: [],
             showModal:false,
+            loggedInUserId: null, // Store the user's ID
 
          };
 
     },
     mounted(){
-        this.loadPosts()
+        this.loadPosts();
+        this.loggedInUserId = localStorage.getItem("user_id"); // Assuming you store user_id in localStorage
+
     },
     methods:{
         closeModal(){
@@ -68,6 +90,14 @@ export default{
         this.content = "";
 
         },
+        async deletePost(postId) {
+      try {
+        await axios.delete(`https://blog-api-web-07jr.onrender.com/delete-post/${postId}`);
+        this.loadPosts(); // Refresh the posts after deletion
+      } catch (error) {
+        console.error("Error deleting post:", error);
+      }
+    },
         async addPost() {
             const username = localStorage.getItem("username");
             console.log('yo',username)

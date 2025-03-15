@@ -31,12 +31,15 @@ app.post("/login", async (req, res) => {
 
   
     // Check if user exists
-    const result = await pool.query("SELECT * FROM users WHERE username = $1", [username]);
+    const result = await pool.query("SELECT id, username FROM users WHERE username = $1", [username]);
   
-    if (result.rows.length > 0) {
+    if (result.rows.length > 0  ) {
+      const userId = result.rows[0].id;
+
       // Generate simple token
       const token = generateToken(username);
-      return res.json({ message: "Login successful", token });
+
+      return res.json({ message: "Login successful", token,user_id:userId });
     } else {
       return res.status(401).json({ message: "User not found" });
     }
@@ -70,6 +73,27 @@ app.post("/add-post", async (req, res) => {
     // Fetch user posts
     const posts = await pool.query("SELECT * FROM posts WHERE user_id = $1", [userId]);
     res.json(posts.rows);
+  });
+
+  app.delete("/delete-post/:id", async (req, res) => {
+    const postId = req.params.id;
+    const userId = req.body.user_id; // Ensure the request includes the logged-in user's ID
+  
+    try {
+      const result = await pool.query(
+        "DELETE FROM posts WHERE id = $1 AND user_id = $2 RETURNING *",
+        [postId, userId]
+      );
+  
+      if (result.rowCount === 0) {
+        return res.status(403).json({ error: "Unauthorized or post not found" });
+      }
+  
+      res.json({ message: "Post deleted successfully" });
+    } catch (error) {
+      console.error("Error deleting post:", error);
+      res.status(500).json({ error: "Internal server error" });
+    }
   });
 
 
