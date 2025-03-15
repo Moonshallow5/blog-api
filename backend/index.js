@@ -43,7 +43,7 @@ app.post("/login", async (req, res) => {
   });
 
   
-// Add Blog Post
+// Add Blog Posttt
 app.post("/add-post", async (req, res) => {
     const { username, title, content } = req.body;
   
