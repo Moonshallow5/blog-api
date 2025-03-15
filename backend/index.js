@@ -77,7 +77,8 @@ app.post("/add-post", async (req, res) => {
 
   app.delete("/delete-post/:id", async (req, res) => {
     const postId = req.params.id;
-    const userId = req.body.user_id; // Ensure the request includes the logged-in user's ID
+    const userId = req.query.user_id; // ✅ Get user_id from query parameter
+
   
     try {
       const result = await pool.query(

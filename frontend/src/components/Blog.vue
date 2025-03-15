@@ -37,7 +37,7 @@
       <v-col v-for="post in posts" :key="post.id">
         <v-card>
             <v-card-title>
-            {{ post.title }}
+            {{ post.title }} 
         </v-card-title>
 
         <v-card-subtitle>
@@ -48,7 +48,7 @@
         <v-card-actions>
             <v-spacer></v-spacer>
             <v-btn 
-              v-if="post.user_id === loggedInUserId" 
+              v-if="post.user_id == loggedInUserId" 
               color="red" 
               @click="deletePost(post.id)"
             >
@@ -75,12 +75,15 @@ export default{
             showModal:false,
             loggedInUserId: null, // Store the user's ID
 
+
          };
 
     },
     mounted(){
+        this.loggedInUserId = localStorage.getItem("user_id");
         this.loadPosts();
-        this.loggedInUserId = localStorage.getItem("user_id"); // Assuming you store user_id in localStorage
+         // Assuming you store user_id in localStorage
+       
 
     },
     methods:{
@@ -91,8 +94,12 @@ export default{
 
         },
         async deletePost(postId) {
+            console.log('post',postId)
+            const userId = this.loggedInUserId
+
+        
       try {
-        await axios.delete(`https://blog-api-web-07jr.onrender.com/delete-post/${postId}`);
+        await axios.delete(`https://blog-api-web-07jr.onrender.com/delete-post/${postId}?user_id=${userId}`);
         this.loadPosts(); // Refresh the posts after deletion
       } catch (error) {
         console.error("Error deleting post:", error);
