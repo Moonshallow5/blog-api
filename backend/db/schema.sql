@@ -4,6 +4,7 @@ CREATE TABLE users (
   id SERIAL PRIMARY KEY,
   username VARCHAR(255) UNIQUE NOT NULL
 );
+UPDATE users SET password = '$2b$10$rOUQomcjIxzYZg/HYySJjOvBTGOekDmS1lq9ah1XebXlWU/ZEVx4O' WHERE username = 'sandeep';
 
 CREATE TABLE posts (
   id SERIAL PRIMARY KEY,

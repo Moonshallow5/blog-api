@@ -52,21 +52,24 @@ app.post("/login", async (req, res) => {
 
   
     // Check if user exists
-    const result = await pool.query("SELECT id, username FROM users WHERE username = $1", [username]);
-    if (result.rows.length === 0) {
+    const result = await pool.query("SELECT id, username,password FROM users WHERE username = $1", [username]);
+    if (result.rows.length > 0) {
+      const user = result.rows[0];
+      
+      const passwordMatch = await bcrypt.compare(password, user.password);
+      console.log(password)
+      console.log(bcrypt.hash(password, 10))
+
+      if (passwordMatch) {
+          const token = generateToken(username);
+          return res.json({ message: "Login successful", token, user_id: user.id });
+      } else {
+          return res.status(401).json({ message: "Invalid password" });
+      }
+  } else {
       return res.status(401).json({ message: "User not found" });
   }
-
-  const user=result.rows[0];
-  const isMatch= await bcrypt.compare(password,user.password);
-  if(!isMatch){
-    return res.status(401).json({message:"invalid password"})
-  }
-
-  const token = generateToken(username);
-
-    return res.json({ message: "Login successful", token, user_id: user.id });
-
+  
 
   });
 
