@@ -11,6 +11,7 @@ import { routes } from 'vue-router/auto-routes'
 import Blog from '@/components/Blog.vue'
 import Login from '@/components/Login.vue'
 import PostView from '@/components/PostView.vue'
+import Register from '@/components/Register.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -20,6 +21,11 @@ const router = createRouter({
       path:'/posts',
       component: Blog,
       name:'blog'
+    },
+    {
+      path:'/register',
+      component: Register,
+      name:'register'
     },
 
     {

@@ -2,6 +2,7 @@ const express=require("express");
 const cors = require("cors");
 const { Pool } = require("pg");
 require("dotenv").config();
+const bcrypt = require("bcrypt");
 
 
 const app = express();
@@ -24,24 +25,49 @@ const pool = new Pool({
 
 const generateToken = (username) => Buffer.from(username + Date.now()).toString("base64");
 
+app.post("/register", async(req,res)=> {
+  const { username, password } = req.body;
+
+  const existingUser = await pool.query("SELECT id FROM users WHERE username = $1", [username]);
+
+    if (existingUser.rows.length > 0) {
+        return res.status(400).json({ message: "Username already taken" });
+    }
+    const hashedpass=await bcrypt.hash(password,10);
+
+    const result = await pool.query(
+      "INSERT INTO users (username, password) VALUES ($1, $2) RETURNING id",
+      [username, hashedpass]
+  );
+
+  return res.json({ message: "User registered successfully", user_id: result.rows[0].id });
+
+
+
+})
+
 app.post("/login", async (req, res) => {
-    const { username } = req.body;
+    const { username,password } = req.body;
     console.log("Login attempt for:", username);  // Log received username
 
   
     // Check if user exists
     const result = await pool.query("SELECT id, username FROM users WHERE username = $1", [username]);
-  
-    if (result.rows.length > 0  ) {
-      const userId = result.rows[0].id;
-
-      // Generate simple token
-      const token = generateToken(username);
-
-      return res.json({ message: "Login successful", token,user_id:userId });
-    } else {
+    if (result.rows.length === 0) {
       return res.status(401).json({ message: "User not found" });
-    }
+  }
+
+  const user=result.rows[0];
+  const isMatch= await bcrypt.compare(password,user.password);
+  if(!isMatch){
+    return res.status(401).json({message:"invalid password"})
+  }
+
+  const token = generateToken(username);
+
+    return res.json({ message: "Login successful", token, user_id: user.id });
+
+
   });
 
   
