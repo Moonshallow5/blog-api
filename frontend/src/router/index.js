@@ -10,6 +10,7 @@ import { createRouter, createWebHistory } from 'vue-router/auto'
 import { routes } from 'vue-router/auto-routes'
 import Blog from '@/components/Blog.vue'
 import Login from '@/components/Login.vue'
+import PostView from '@/components/PostView.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -25,7 +26,12 @@ const router = createRouter({
       path:'/',
       component: Login,
       name:'login',
-    }
+    },
+    {
+    path:'/post/:id',
+    component:PostView,
+    name:'post-view',
+    },
 
 
 

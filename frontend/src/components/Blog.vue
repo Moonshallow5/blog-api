@@ -35,7 +35,7 @@
     <v-row>
    
       <v-col v-for="post in posts" :key="post.id">
-        <v-card>
+        <v-card @click="$router.push(`/post/${post.id}`)">
             <v-card-title>
             {{ post.title }} 
         </v-card-title>
@@ -81,9 +81,11 @@ export default{
     },
     mounted(){
         this.loggedInUserId = localStorage.getItem("user_id");
+    if (this.loggedInUserId) {
         this.loadPosts();
-         // Assuming you store user_id in localStorage
-       
+    } else {
+        console.error("User ID not found in localStorage");
+    }
 
     },
     methods:{
@@ -94,7 +96,6 @@ export default{
 
         },
         async deletePost(postId) {
-            console.log('post',postId)
             const userId = this.loggedInUserId
 
         
@@ -106,11 +107,9 @@ export default{
       }
     },
         async addPost() {
-            const username = localStorage.getItem("username");
-            console.log('yo',username)
-            console.log('yo',this.title)
+            const userId = this.loggedInUserId
             await axios.post("https://blog-api-web-07jr.onrender.com/add-post", {
-                username,
+                userId,
                 title: this.title,
                 content: this.content,
             });
@@ -118,8 +117,9 @@ export default{
             this.loadPosts();
         },
         async loadPosts() {
-        const username = localStorage.getItem("username");
-        const response = await axios.get(`https://blog-api-web-07jr.onrender.com/posts/${username}`);
+        
+        const userId = this.loggedInUserId
+        const response = await axios.get(`https://blog-api-web-07jr.onrender.com/posts/${userId}`);
         this.posts = response.data;
         },
     }
