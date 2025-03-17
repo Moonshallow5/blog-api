@@ -75,12 +75,6 @@ export default{
 
     },
     methods:{
-        closeModal(){
-            this.showModal = false;
-        this.title = "";
-        this.content = "";
-
-        },
         async deletePost(postId) {
             const userId = this.loggedInUserId
 
@@ -101,7 +95,7 @@ export default{
         async loadPosts() {
         
         const userId = this.loggedInUserId
-        const response = await axios.get(`https://blog-api-web-07jr.onrender.com/posts/${userId}`);
+        const response = await axios.get(`https://blog-api-web-07jr.onrender.com/posts/user/${userId}`);
         this.posts = response.data;
         },
     }

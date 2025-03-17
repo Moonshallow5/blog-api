@@ -8,13 +8,6 @@ const port = 5000;
 app.use(cors());
 app.use(express.json()); // Parse JSON requests
 
-// const pool = new Pool({
-//   user: "postgres",
-//   host: "localhost",
-//   database: "blog",
-//   password: process.env.DB_PASSWORD,
-//   port: 5432,
-// });
 
 app.use('/auth',require("./routes/authRoutes"));
 app.use('/posts',require("./routes/postRoutes"));

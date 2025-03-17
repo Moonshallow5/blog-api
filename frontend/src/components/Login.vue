@@ -49,7 +49,7 @@ export default{
             try {
                 console.log(this.username)
                 this.loading['login_user']=true
-                const response = await axios.post("https://blog-api-web-07jr.onrender.com/login", { 
+                const response = await axios.post("https://blog-api-web-07jr.onrender.com/auth/login", { 
                     username: this.username,
                     password:this.password,
 
