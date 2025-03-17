@@ -35,7 +35,7 @@ export default{
     methods:{
         async addPost() {
             const userId = this.loggedInUserId
-            await axios.post("https://blog-api-web-07jr.onrender.com/add-post", {
+            await axios.post("https://blog-api-web-07jr.onrender.com/posts/add-post", {
                 userId,
                 title: this.title,
                 content: this.content,
