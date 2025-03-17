@@ -1,34 +1,19 @@
 <template>
 
 <v-container>
-    <v-row>
+
+    <h3 class="text-h5 mb-5 poppins" >
+                Blog Posts</h3>
+            <hr />
+    <v-row class="mt-3">
         <v-col class="d-flex justify-start">
             <v-btn color="primary" @click=" this.$router.replace('/')"  >Logout</v-btn>
     </v-col>
 
     <v-col class="d-flex justify-end">
-            <v-btn color="primary"  @click="showModal = true">Add Post</v-btn>
+            <v-btn color="primary"  @click="addPost">Add Post</v-btn>
     </v-col>
         </v-row>
-    <v-dialog  v-model="showModal" persistent max-width="400px">
-        <v-card>
-
-            <v-card-title class="d-flex">
-
-                <span class="text-h5">Add a New Post</span>
-            </v-card-title>
-        </v-card>
-        <v-card-text>
-
-
-        <v-text-field v-model="title" placeholder="Enter title" />
-        <v-textarea v-model="content" placeholder="Enter content"></v-textarea>
-        <v-card-actions>
-            <v-btn color="blue darken-1" text @click="closeModal">Cancel</v-btn>
-            <v-btn @click="addPost">Post</v-btn>
-        </v-card-actions>
-    </v-card-text>
-    </v-dialog>
     
 
     <h2 class="mt-7">Your Blog Posts</h2>
@@ -51,6 +36,7 @@
               v-if="post.user_id == loggedInUserId" 
               color="red" 
               @click="deletePost(post.id)"
+              style="z-index: 1000;"
             >
               Delete
             </v-btn>
@@ -98,23 +84,19 @@ export default{
         async deletePost(postId) {
             const userId = this.loggedInUserId
 
+                
+            try {
+                await axios.delete(`https://blog-api-web-07jr.onrender.com/delete-post/${postId}?user_id=${userId}`);
+              
+            } catch (error) {
+                console.error("Error deleting post:", error);
+            }
+            this.loadPosts()
+        },
         
-      try {
-        await axios.delete(`https://blog-api-web-07jr.onrender.com/delete-post/${postId}?user_id=${userId}`);
-        this.loadPosts(); // Refresh the posts after deletion
-      } catch (error) {
-        console.error("Error deleting post:", error);
-      }
-    },
         async addPost() {
-            const userId = this.loggedInUserId
-            await axios.post("https://blog-api-web-07jr.onrender.com/add-post", {
-                userId,
-                title: this.title,
-                content: this.content,
-            });
-            this.closeModal()
-            this.loadPosts();
+            this.$router.push('add-post')
+
         },
         async loadPosts() {
         

@@ -1,15 +1,17 @@
 <template>
 
     <v-container>
-        <v-btn @click="$router.push('/')">⬅ Back</v-btn>
+        <v-btn @click="$router.push('/posts')">⬅ Back</v-btn>
 
         <v-card class="mt-5">
-      <v-card-title>{{ post.title }}</v-card-title>
+      <v-card-title>{{ post.title }}  </v-card-title>
+      <v-card-subtitle>{{ post.created_at }}</v-card-subtitle>
       <v-card-text>{{ post.content }}</v-card-text>
+
     </v-card>
 
     <h3 class="mt-5">Comments</h3>
-    <v-card v-for="comment in comments" :key="comment.id" class="mt-2">
+    <v-card v-for="comment in comments" :key="comment.id" class="mt-2" style="background-color: lightcyan;">
       <v-card-text>
         <strong>{{ comment.username }}</strong>: {{ comment.content }}
       </v-card-text>
@@ -29,7 +31,7 @@ export default{
     name:"post-view",
     data(){
         return{
-            post:{},
+            post:[],
             comments:[],
             newComment: "",
 

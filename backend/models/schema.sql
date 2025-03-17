@@ -6,6 +6,9 @@ CREATE TABLE users (
 );
 UPDATE users SET password = '$2b$10$rOUQomcjIxzYZg/HYySJjOvBTGOekDmS1lq9ah1XebXlWU/ZEVx4O' WHERE username = 'sandeep';
 
+
+DELETE FROM users WHERE username = 'sandeep';
+
 CREATE TABLE posts (
   id SERIAL PRIMARY KEY,
   user_id INT REFERENCES users(id) ON DELETE CASCADE,
