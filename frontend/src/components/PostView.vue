@@ -49,7 +49,7 @@ export default{
     },
     methods:{
     async loadPost(postId) {
-      const response = await axios.get(`https://blog-api-web-07jr.onrender.com/post/${postId}`);
+      const response = await axios.get(`https://blog-api-web-07jr.onrender.com/posts/posts/${postId}`);
       this.post = response.data;
     },
     
@@ -60,7 +60,7 @@ export default{
             alert("You must be logged in to comment.");
             return;
         }
-        await axios.post("https://blog-api-web-07jr.onrender.com/add-comment",{
+        await axios.post("https://blog-api-web-07jr.onrender.com/comments/add-comment",{
 
             userId,
             postId:this.$route.params.id,
@@ -71,7 +71,7 @@ export default{
     },
 
     async loadComments(postId){
-        const response=await axios.get(`https://blog-api-web-07jr.onrender.com/comments/${postId}`);
+        const response=await axios.get(`https://blog-api-web-07jr.onrender.com/comments/comments/${postId}`);
         this.comments=response.data
     }
 }

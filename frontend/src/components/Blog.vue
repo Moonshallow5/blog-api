@@ -80,7 +80,7 @@ export default{
 
                 
             try {
-                await axios.delete(`https://blog-api-web-07jr.onrender.com/delete-post/${postId}?user_id=${userId}`);
+                await axios.delete(`https://blog-api-web-07jr.onrender.com/posts/delete-post/${postId}?user_id=${userId}`);
               
             } catch (error) {
                 console.error("Error deleting post:", error);

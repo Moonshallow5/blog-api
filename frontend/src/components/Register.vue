@@ -41,7 +41,7 @@ export default{
         } ,
         async registerUser(){
             try {
-        const response = await axios.post("https://blog-api-web-07jr.onrender.com/register", {
+        const response = await axios.post("https://blog-api-web-07jr.onrender.com/auth/register", {
             username: this.username,
             password: this.password
         });
