@@ -1,79 +1,48 @@
-# Vuetify (Default)
+# Sandeep's Blog
+https://blog-api-front-ig3e.onrender.com/ 
+## ⏰Something to note:
 
-This is the official scaffolding tool for Vuetify, designed to give you a head start in building your new Vuetify application. It sets up a base template with all the necessary configurations and standard directory structure, enabling you to begin development without the hassle of setting up the project from scratch.
+I am using the free version of Render. Accoding to the current Terms and Conditions of Render, it says Databases on the free tier will be deleted after 30 days upon creation
 
-## ❗️ Important Links
+Thus, if the project doesn't work and you want to use it, email me on "ssandeepssingh55@gmail.com"
 
-- 📄 [Docs](https://vuetifyjs.com/)
-- 🚨 [Issues](https://issues.vuetifyjs.com/)
-- 🏬 [Store](https://store.vuetifyjs.com/)
-- 🎮 [Playground](https://play.vuetifyjs.com/)
-- 💬 [Discord](https://community.vuetifyjs.com)
 
-## 💿 Install
+## 💡Inspiration
 
-Set up your project using your preferred package manager. Use the corresponding command to install the dependencies:
+I still have not implemented a full stack application, till date. Thus, making this was personal for me lol. My first full stack application, utilizing Vue.js, Vuetify for FE. Express.js, JWT for middleware and PostgreSQL for database. 
 
-| Package Manager                                                | Command        |
-|---------------------------------------------------------------|----------------|
-| [yarn](https://yarnpkg.com/getting-started)                   | `yarn install` |
-| [npm](https://docs.npmjs.com/cli/v7/commands/npm-install)     | `npm install`  |
-| [pnpm](https://pnpm.io/installation)                          | `pnpm install` |
-| [bun](https://bun.sh/#getting-started)                        | `bun install`  |
+This whole application has been deployed on Render
 
-After completing the installation, your environment is ready for Vuetify development.
+## 👀What it does?
 
-## ✨ Features
+Wanting to start a blog for yourself, you can do so by creating new Posts, Viewing and Editing your blog posts. You can also comment on each post as well.
 
-- 🖼️ **Optimized Front-End Stack**: Leverage the latest Vue 3 and Vuetify 3 for a modern, reactive UI development experience. [Vue 3](https://v3.vuejs.org/) | [Vuetify 3](https://vuetifyjs.com/en/)
-- 🗃️ **State Management**: Integrated with [Pinia](https://pinia.vuejs.org/), the intuitive, modular state management solution for Vue.
-- 🚦 **Routing and Layouts**: Utilizes Vue Router for SPA navigation and vite-plugin-vue-layouts for organizing Vue file layouts. [Vue Router](https://router.vuejs.org/) | [vite-plugin-vue-layouts](https://github.com/JohnCampionJr/vite-plugin-vue-layouts)
-- ⚡ **Next-Gen Tooling**: Powered by Vite, experience fast cold starts and instant HMR (Hot Module Replacement). [Vite](https://vitejs.dev/)
-- 🧩 **Automated Component Importing**: Streamline your workflow with unplugin-vue-components, automatically importing components as you use them. [unplugin-vue-components](https://github.com/antfu/unplugin-vue-components)
 
-These features are curated to provide a seamless development experience from setup to deployment, ensuring that your Vuetify application is both powerful and maintainable.
+This works by building mutiple API's in Express.js and I built API requests from the FE to them.
 
-## 💡 Usage
+## 🔧How I built it?
 
-This section covers how to start the development server and build your project for production.
+This was built as part of the <a href="https://www.theodinproject.com/dashboard">Odin Projects</a>, course. Highly recommend it. I have another <a href="https://github.com/Moonshallow5/Odin_Project">github repo </a> for most of my projects done from there. I have now completed the whole course which took approximately 5 months lol.
 
-### Starting the Development Server
+## 💡What I learnt
 
-To start the development server with hot-reload, run the following command. The server will be accessible at [http://localhost:3000](http://localhost:3000):
+- Learnt how to make and configure API requests both in express.js and tested with Postman API.
 
-```bash
-yarn dev
-```
+- Learnt best practices, using router, controllers and model
 
-(Repeat for npm, pnpm, and bun with respective commands.)
+- Learnt a suitable full stack deploying strategy. However, I should probably look for something else in the future because Render deletes db's pretty quickly sadly.
 
-> Add NODE_OPTIONS='--no-warnings' to suppress the JSON import warnings that happen as part of the Vuetify import mapping. If you are on Node [v21.3.0](https://nodejs.org/en/blog/release/v21.3.0) or higher, you can change this to NODE_OPTIONS='--disable-warning=5401'. If you don't mind the warning, you can remove this from your package.json dev script.
 
-### Building for Production
+## 🚧Challenges I ran into
 
-To build your project for production, use:
+- Deploying it was such a pain :'( I first tried to use Railway, and watch some YouTube videos on how to deploy a middleware but there wasn't many for using Railway thus I switched over to Render
 
-```bash
-yarn build
-```
+- Learning to deploy 3 applications on Render took about a day, one for PostgeSQL, another for express.js and the third was just Vue
 
-(Repeat for npm, pnpm, and bun with respective commands.)
+## 🟩Further Improvements
 
-Once the build process is completed, your application will be ready for deployment in a production environment.
+- Build a tab in one of the sections to see all posts which has ever been deployed on the site
 
-## 💪 Support Vuetify Development
+- Upgrade UI/UX
 
-This project is built with [Vuetify](https://vuetifyjs.com/en/), a UI Library with a comprehensive collection of Vue components. Vuetify is an MIT licensed Open Source project that has been made possible due to the generous contributions by our [sponsors and backers](https://vuetifyjs.com/introduction/sponsors-and-backers/). If you are interested in supporting this project, please consider:
-
-- [Requesting Enterprise Support](https://support.vuetifyjs.com/)
-- [Sponsoring John on Github](https://github.com/users/johnleider/sponsorship)
-- [Sponsoring Kael on Github](https://github.com/users/kaelwd/sponsorship)
-- [Supporting the team on Open Collective](https://opencollective.com/vuetify)
-- [Becoming a sponsor on Patreon](https://www.patreon.com/vuetify)
-- [Becoming a subscriber on Tidelift](https://tidelift.com/subscription/npm/vuetify)
-- [Making a one-time donation with Paypal](https://paypal.me/vuetify)
-
-## 📑 License
-[MIT](http://opensource.org/licenses/MIT)
-
-Copyright (c) 2016-present Vuetify, LLC
+- Enable Images to be uploaded in blog posts
