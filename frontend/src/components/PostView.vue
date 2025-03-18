@@ -57,9 +57,9 @@ export default{
     async addComment(postId){
         const userId=localStorage.getItem('user_id')
         if (!userId) {
-            alert("You must be logged in to comment.");
+          alert("Please login to make a comment");
             return;
-        }
+        }else{
         await axios.post("https://blog-api-web-07jr.onrender.com/comments/add-comment",{
 
             userId,
@@ -67,6 +67,7 @@ export default{
             content:this.newComment
         })
         this.newComment = ""; // Clear input
+      }
       this.loadComments(this.$route.params.id); // Refresh comments
     },
 

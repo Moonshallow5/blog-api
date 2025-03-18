@@ -7,11 +7,12 @@
             <hr />
     <v-row class="mt-3">
         <v-col class="d-flex justify-start">
-            <v-btn color="primary" @click=" this.$router.replace('/')"  >Logout</v-btn>
+            <v-btn color="primary" v-if="loggedInUserId" @click="logout()" >Logout</v-btn>
+            <v-btn color="primary" v-if="!loggedInUserId" @click="login" >Login</v-btn>
     </v-col>
 
     <v-col class="d-flex justify-end">
-            <v-btn color="primary"  @click="addPost">Add Post</v-btn>
+            <v-btn color="primary" v-if="loggedInUserId"   @click="addPost">Add Post</v-btn>
     </v-col>
         </v-row>
     
@@ -75,15 +76,28 @@ export default{
 
     },
     mounted(){
-        this.loggedInUserId = localStorage.getItem("user_id");
-    if (this.loggedInUserId) {
-        this.loadPosts();
-    } else {
-        console.error("User ID not found in localStorage");
-    }
+        this.loggedInUserId = localStorage.getItem("user_id"); // Initialize on mount
+ 
+        if (!this.loggedInUserId) {
+            alert('User Id not found')
+        } else {
+            this.loadPosts();
+        }
 
     },
     methods:{
+        logout(){
+            localStorage.removeItem("token");
+            localStorage.removeItem("username");
+            localStorage.removeItem("user_id");
+           
+            this.loggedInUserId = null; // Update state reactively
+           
+
+        },
+        login(){
+            this.$router.replace('/')
+        },
         editPost(post){
             this.$router.push({
             path:'/add-post',

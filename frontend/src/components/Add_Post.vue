@@ -34,6 +34,11 @@ export default{
     },
     mounted(){
         this.loggedInUserId = localStorage.getItem("user_id");
+        if (!this.loggedInUserId) {
+            alert('User Id not found')
+            this.$router.replace('/')
+            return;
+        }
         if(this.$route.query.editmode){
             this.editMode=true;
             this.postId=this.$route.query.id;
