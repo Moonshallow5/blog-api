@@ -54,17 +54,17 @@ export default{
                     password:this.password,
 
                 });
-                console.log('hiii',response.data)
                 this.token = response.data.token;
                 localStorage.setItem("token", this.token);
                 localStorage.setItem("username", this.username); // Fix here ✅
                 localStorage.setItem("user_id", response.data.user_id);  // ✅ Store user_id 
-
                 this.loading['login_user']=false
                 this.$router.replace('/posts')
             } catch (error) {
+                this.loading['login_user']=false
                 console.log('smth happened')
             }
+            this.loading['login_user']=false
         }
     }
 }

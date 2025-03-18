@@ -28,6 +28,27 @@ exports.addPost= async (req, res) => {
     }
   };
 
+  exports.updatePost=async(req,res)=>{
+    const { id } = req.params;
+    const { title, content } = req.body;
+    
+    try {
+      const result = await pool.query(
+          "UPDATE posts SET title = $1, content = $2 WHERE id = $3 RETURNING *",
+          [title, content, id]
+      );
+
+      if (result.rowCount === 0) {
+          return res.status(404).json({ message: "Post not found" });
+      }
+
+      res.json({ message: "Post updated successfully", post: result.rows[0] });
+  } catch (error) {
+      console.error("Error updating post:", error);
+      res.status(500).json({ message: "Internal server error" });
+  }
+  }
+
   exports.getPostById= async (req, res) => {
     const { id } = req.params;
         try {

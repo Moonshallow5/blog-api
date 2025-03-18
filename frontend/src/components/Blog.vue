@@ -31,12 +31,20 @@
 
         </v-card-subtitle>
         <v-card-actions>
+            
             <v-spacer></v-spacer>
+            <v-btn 
+            v-if="post.user_id == loggedInUserId" 
+            icon 
+            @click.stop="editPost(post)"   
+            >
+            <v-icon>mdi-pencil</v-icon> 
+        </v-btn>
             <v-btn 
               v-if="post.user_id == loggedInUserId" 
               color="red" 
-              @click="deletePost(post.id)"
-              style="z-index: 1000;"
+              @click.stop="deletePost(post.id)"
+              
             >
               Delete
             </v-btn>
@@ -60,6 +68,7 @@ export default{
             title: "", content: "", posts: [],
             showModal:false,
             loggedInUserId: null, // Store the user's ID
+            editmode:null,
 
 
          };
@@ -75,6 +84,21 @@ export default{
 
     },
     methods:{
+        editPost(post){
+            this.$router.push({
+            path:'/add-post',
+            query:{
+                editmode:true,
+                id:post.id,
+                content:post.content,
+                title:post.title,
+
+            }
+
+
+            });
+
+        },
         async deletePost(postId) {
             const userId = this.loggedInUserId
 
